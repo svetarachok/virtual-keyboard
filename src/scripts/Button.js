@@ -1,67 +1,55 @@
 export class Button {
-    constructor (key) {
+    constructor (key, code, ...classes) {
         this.key = key;
-        this.value = '';
+        this.code = code;
+        this.classes = classes;
     }
 
     generateButton () {
         let button = document.createElement('button');
         button.className = 'key';
         button.innerHTML = `${this.key}`;
-        button.setAttribute('data', `${this.key}`)
-        
-        if (this.key === 'Backspace' || this.key === "CapsLock" || this.key === "Shift" || this.key === "Enter") {
-            button.classList.add('key-wide')
-            button.classList.add('key-control')
-        }
+        button.setAttribute('data', `${this.code}`)        
 
-        if (this.key === 'Alt' || this.key === "Tab" || this.key === "Control") {
-            button.classList.add('key-control')
-        }
-
-        if (this.key === "Delete") {
-            button.classList.add('semi-wide')
-            button.classList.add('key-control')
-        }
-
-        if (this.key === "Meta") {
+        if (this.code === "MetaLeft") {
             button.classList.add('key-control')
             button.innerHTML = `<span class="material-icons">grid_view</span>`
         }
 
-        if (this.key === ' ') {
-            button.classList.add('spacebar')
-            button.innerHTML = `<span class="material-icons">space_bar</span>`
-        }
+        // if (this.key === ' ') {
+        //     button.classList.add('spacebar')
+        //     button.innerHTML = `<span class="material-icons">space_bar</span>`
+        // }
 
         if (this.key === 'ArrowLeft') {
             button.classList.add('key-control')
-            button.innerHTML = `<span class="material-icons">arrow_left</span>`
+            button.innerHTML = '◄'
         }
 
         if (this.key === 'ArrowRight') {
             button.classList.add('key-control')
-            button.innerHTML = `<span class="material-icons">arrow_right</span>`
+            button.innerHTML = '►'
         }
 
         if (this.key === 'ArrowUp') {
             button.classList.add('key-control')
-            button.innerHTML = `<span class="material-icons">arrow_drop_up</span>`
+            button.innerHTML = '▲'
         }
 
         if (this.key === 'ArrowDown') {
             button.classList.add('key-control')
-            button.innerHTML = `<span class="material-icons">arrow_drop_down</span>`
+            button.innerHTML = '▼'
         }
         return button
     }
 
  
 
-
-
-
-
-
 }
+
+
+
+
+
+
 

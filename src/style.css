@@ -42,7 +42,7 @@ textarea {
 
 /* keyBoard*/
 .keyboard_wrapper {
-    width: 860px;
+    width: 846px;
     height: 280px;
     background-color: #010120;
 }
@@ -70,18 +70,18 @@ textarea {
 }
 
 .key-wide {
-    width: 120px;
+    width: 113px;
     font-size: 18px;
     background-color: lightblue;
 }
 .key-semiwide {
-    width: 75px;
+    width: 65px;
     font-size: 18px;
     background-color: lightblue;
 }
 
 .spacebar {
-    width: 340px;
+    width: 394px;
 }
 
 .key-control {

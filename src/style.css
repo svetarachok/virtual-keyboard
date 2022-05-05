@@ -30,8 +30,8 @@ body {
 }
 
 .input_wrapper, textarea {
-    width: 890px;
-    height: 300px;
+    width: 860px;
+    height: 200px;
 }
 
 textarea {
@@ -90,13 +90,11 @@ textarea {
 }
 
 .key:hover {
-    background-color: red;
+    /* background-color: rgb(255, 144, 144); */
     cursor: pointer;
-    transition: 0.3s ease-in-out;
 }
 
 .active {
     background-color: red;
     cursor: pointer;
-    transition: 0.3s ease-in-out;
 }

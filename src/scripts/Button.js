@@ -8,6 +8,7 @@ export class Button {
         let button = document.createElement('button');
         button.className = 'key';
         button.innerHTML = `${this.key}`;
+        button.setAttribute('data', `${this.key}`)
         
         if (this.key === 'Backspace' || this.key === "CapsLock" || this.key === "Shift" || this.key === "Enter") {
             button.classList.add('key-wide')
@@ -54,5 +55,17 @@ export class Button {
         }
         return button
     }
+
+    highlightButton() {
+        this.element.classList.add('active');
+        if (this.element.classList.contains('active'))
+        this.element.classList.remove('active');
+    }
+
+
+
+
+
+
 }
 

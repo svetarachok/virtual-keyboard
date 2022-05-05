@@ -56,11 +56,7 @@ export class Button {
         return button
     }
 
-    highlightButton() {
-        this.element.classList.add('active');
-        if (this.element.classList.contains('active'))
-        this.element.classList.remove('active');
-    }
+ 
 
 
 

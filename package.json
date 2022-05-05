@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/svetarachok/virtual-keyboard/issues"
   },
-  "homepage": "https://github.com/svetarachok/virtual-keyboard#readme",
+  "homepage": "https://svetarachok.github.io/virtual-keyboard",
   "devDependencies": {
     "@babel/core": "^7.17.10",
     "@babel/preset-env": "^7.17.10",

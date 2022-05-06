@@ -3,16 +3,20 @@ import { Button} from './Button'
 import '../style.css'
 import { Spacebar } from './Spacebar';
 import { ControlButton } from './ControlButton';
+import { CapsLock } from './Capslock';
 
-//data 
+
 const body = document.querySelector('body');
 const header = renderElement('header','header', 'Rss Virtual Keyboard');
 const main = renderElement('main', 'main');
 const inputWrapper = renderElement('div', 'input_wrapper');
 const inputArea = renderElement('textarea', 'textarea');
-const keyboardWrapper = renderElement('div', 'keyboard_wrapper')
-const keyboard = renderElement('div', 'keyboard')
+const keyboardWrapper = renderElement('div', 'keyboard_wrapper');
+const keyboard = renderElement('div', 'keyboard');
 
+const KEYS = document.querySelectorAll('.key')
+
+//Dom 
 window.addEventListener('DOMContentLoaded', () => {
     inputArea.focus()
 })
@@ -32,10 +36,9 @@ inputWrapper.append(inputArea);
 main.append(keyboardWrapper);
 keyboardWrapper.append(keyboard);
 
-// const arrLowerCase = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\', 'Delete','CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", 'Enter', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'ArrowUp', 'Shift', 'Control', 'Meta', 'Alt', ' ', 'Alt', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'Control' 
-// ];
+//Buttons
 
-const controls = ["Backspace", "Tab", "Delete", "CapsLock", "Enter", "ShiftLeft", "ShiftRight", "ControlLeft", "MetaLeft", "AltLeft", "AltRight", "ControlRight"];
+const controls = ["Backspace", "Tab", "Delete", "Enter", "ShiftLeft", "ShiftRight", "ControlLeft", "MetaLeft", "AltLeft", "AltRight", "ControlRight"];
 
 const renderButtons = (arr, container) => {
     arr.forEach(button => {
@@ -46,6 +49,9 @@ const renderButtons = (arr, container) => {
         } else if (controls.includes(button.code)) {
             element = new ControlButton(button.key, button.code)
             container.append(element.generateControlButton())
+        } else if (button.code === "CapsLock") {
+            element = new CapsLock(button.key, button.code)
+            container.append(element.generateCapsLock())
         } else {
             element = new Button(button.key, button.code)
             container.append(element.generateButton()) 
@@ -57,39 +63,58 @@ const renderButtons = (arr, container) => {
 renderButtons(BUTTONS_DATA, keyboard)
 
 function printButtons (button, input) { 
-
-    if ( button.getAttribute('data') === " ") {
+   
+    if ( button.getAttribute('data') === "Space") {
         input.value += " "
-        // return input.value
-    } else if (button.getAttribute('data') === "Tab") {
-        input.value += "    "
-        // return input.value
     } else if (button.getAttribute('data') === "Backspace") {
         input.value = input.value.slice(0, -1)
+    } else if (button.getAttribute('data') === "Enter") {
+        input.value += "\n"
+    } else if (controls.includes(button.getAttribute('data'))) {
+        return input.value
+    } else if (button.getAttribute('data') === "CapsLock") {
         return input.value
     } else {
         input.value += button.innerHTML 
-        return input.value
     }
     return input.value
+
 } 
 
+const capsLock = (e, keysArr) => {
+        if (e.getModifierState("CapsLock")) {
+            for (let key of keysArr) { 
+                if (key.innerHTML.match(/\w{1}/) && !controls.includes(key.innerHTML)) {
+                    key.innerHTML = key.innerHTML.toUpperCase()
+                }
+            }
+        }     
+}
 
-
-window.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', function(e) {
+    // e.preventDefault()
    const keys = document.querySelectorAll('.key')
    for (let key of keys) {
-        if (e.key === key.getAttribute('data')) {
+        if (e.code === key.getAttribute('data')) {
             key.classList.add('active')
             printButtons(key, inputArea)
+            capsLock(e, keys)
         } 
+        // if (e.getModifierState("CapsLock")) {
+        //     for (let key of KEYS) {
+        //         console.log('hELO')
+        //         if (key.match(/[a-z]/)) {
+        //             return key.innerHTML.toUpperCase()
+        //         }
+        //     }
+        // }
     }
 })
 
-window.addEventListener('keyup', function(e) {
+document.addEventListener('keyup', function(e) {
     const keys = document.querySelectorAll('.key')
      for (let key of keys) {
-         if (e.key === key.getAttribute('data')) {
+         if (e.code === key.getAttribute('data')) {
             key.classList.remove('active')
          }
      }
@@ -100,6 +125,7 @@ window.addEventListener('keyup', function(e) {
      for (let key of keys) {
          if (e.target.getAttribute('data') === key.getAttribute('data')) {
             key.classList.add('active')
+            printButtons(key, inputArea)
         } 
     }
  })
@@ -122,3 +148,4 @@ window.addEventListener('keyup', function(e) {
 //     console.log(arr)
 //     return arr
 // })
+

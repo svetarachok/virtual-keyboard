@@ -11,16 +11,6 @@ export class Button {
         button.innerHTML = `${this.key}`;
         button.setAttribute('data', `${this.code}`)        
 
-        if (this.code === "MetaLeft") {
-            button.classList.add('key-control')
-            button.innerHTML = `<span class="material-icons">grid_view</span>`
-        }
-
-        // if (this.key === ' ') {
-        //     button.classList.add('spacebar')
-        //     button.innerHTML = `<span class="material-icons">space_bar</span>`
-        // }
-
         if (this.key === 'ArrowLeft') {
             button.classList.add('key-control')
             button.innerHTML = '◄'
@@ -40,11 +30,15 @@ export class Button {
             button.classList.add('key-control')
             button.innerHTML = '▼'
         }
+
+        // button.printValue()
+
         return button
     }
 
- 
-
+    printValue () {
+        return this.key    
+    }
 }
 
 

@@ -63,13 +63,15 @@ const renderButtons = (arr, container) => {
 renderButtons(BUTTONS_DATA, keyboard)
 
 function printButtons (button, input) { 
-   
+    
     if ( button.getAttribute('data') === "Space") {
         input.value += " "
     } else if (button.getAttribute('data') === "Backspace") {
         input.value = input.value.slice(0, -1)
     } else if (button.getAttribute('data') === "Enter") {
         input.value += "\n"
+    } else if (button.getAttribute('data') === "Tab") {
+        input.value += "\t"
     } else if (controls.includes(button.getAttribute('data'))) {
         return input.value
     } else if (button.getAttribute('data') === "CapsLock") {
@@ -82,17 +84,20 @@ function printButtons (button, input) {
 } 
 
 const capsLock = (e, keysArr) => {
-        if (e.getModifierState("CapsLock")) {
-            for (let key of keysArr) { 
-                if (key.innerHTML.match(/\w{1}/) && !controls.includes(key.innerHTML)) {
-                    key.innerHTML = key.innerHTML.toUpperCase()
-                }
+    for (let key of keysArr) { 
+        const text = key.innerHTML
+        if (key.innerHTML.match(/^\w$/) && !controls.includes(key.innerHTML)) {
+            if (e.getModifierState("CapsLock")) {
+                key.innerHTML = key.innerHTML.toUpperCase()
+            } else {
+                key.innerHTML = key.innerHTML.toLowerCase()
             }
-        }     
+        }
+    }
 }
 
 document.addEventListener('keydown', function(e) {
-    // e.preventDefault()
+    e.preventDefault()
    const keys = document.querySelectorAll('.key')
    for (let key of keys) {
         if (e.code === key.getAttribute('data')) {
@@ -100,14 +105,6 @@ document.addEventListener('keydown', function(e) {
             printButtons(key, inputArea)
             capsLock(e, keys)
         } 
-        // if (e.getModifierState("CapsLock")) {
-        //     for (let key of KEYS) {
-        //         console.log('hELO')
-        //         if (key.match(/[a-z]/)) {
-        //             return key.innerHTML.toUpperCase()
-        //         }
-        //     }
-        // }
     }
 })
 
@@ -126,6 +123,7 @@ document.addEventListener('keyup', function(e) {
          if (e.target.getAttribute('data') === key.getAttribute('data')) {
             key.classList.add('active')
             printButtons(key, inputArea)
+            capsLock(e, keys)
         } 
     }
  })

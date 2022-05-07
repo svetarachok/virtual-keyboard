@@ -110,4 +110,10 @@ textarea {
     display: none
 }
 
+.lang-notes {
+    width: 54%;
+    font-size: 18px;
+    font-weight: bold;
+}
+
 /*# sourceMappingURL=main.css.map*/

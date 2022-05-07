@@ -1,10 +1,6 @@
 import Button from './Button';
 
 export default class ControlButton extends Button {
-  constructor(key, code) {
-    super(key, code);
-  }
-
   generateControlButton() {
     const button = document.createElement('button');
     button.className = 'key key-control';

@@ -86,12 +86,12 @@ const printButtons = (button, input) => {
   return input.value;
 };
 
-const capsLock = (e, keysArr) => {
-  keysArr.forEach((key) => {
+const capsLock = (e, buttonsArr) => {
+  buttonsArr.forEach((button) => {
     if (e.getModifierState('CapsLock')) {
-      key.innerHTML = key.innerHTML.toUpperCase();
+      button.innerHTML = button.innerHTML.toUpperCase();
     } else {
-      key.innerHTML = key.innerHTML.toLowerCase();
+      button.innerHTML = button.innerHTML.toLowerCase();
       CAPSLOCK.classList.remove('active');
     }
   });
@@ -99,8 +99,13 @@ const capsLock = (e, keysArr) => {
 
 const changeLanguage = (lang, obj, buttonsArr) => {
   buttonsArr.forEach((button) => {
-    (lang === 'ru') ? button.innerHTML = obj[button.getAttribute('data')][1]
-      : button.innerHTML = obj[button.getAttribute('data')][0];
+    let letter;
+    if (lang === 'ru') {
+      letter = obj[button.getAttribute('data')][1];
+    } else {
+      letter = obj[button.getAttribute('data')][0];
+    }
+    button.innerHTML = letter;
   });
 };
 

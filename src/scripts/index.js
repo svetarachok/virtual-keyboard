@@ -22,6 +22,7 @@ const main = renderElement('main', 'main');
 const inputWrapper = renderElement('div', 'input_wrapper');
 const keyboardWrapper = renderElement('div', 'keyboard_wrapper');
 const keyboard = renderElement('div', 'keyboard');
+const note = renderElement('div', 'lang-notes', "Клавиатура создана в операционной системе Windows Для переключения языка комбинация: левыe ctrl + alt")
 
 window.addEventListener('DOMContentLoaded', () => {
   inputArea.focus();
@@ -33,6 +34,7 @@ main.append(inputWrapper);
 inputWrapper.append(inputArea);
 main.append(keyboardWrapper);
 keyboardWrapper.append(keyboard);
+keyboardWrapper.after(note)
 
 // Buttons
 

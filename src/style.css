@@ -109,3 +109,9 @@ textarea {
 .hidden-key {
     display: none
 }
+
+.lang-notes {
+    width: 54%;
+    font-size: 18px;
+    font-weight: bold;
+}

@@ -11,8 +11,7 @@
     "watch": "webpack --watch",
     "serve": "webpack serve",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
-    "eslint": "eslint"
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -30,7 +29,7 @@
     "@webpack-cli/generators": "^2.4.2",
     "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",
-    "eslint": "^8.14.0",
+    "eslint": "^8.15.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
     "gh-pages": "^3.2.3",

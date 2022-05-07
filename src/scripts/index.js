@@ -63,8 +63,9 @@ renderButtons(BUTTONS_DATA, keyboard)
 
 const someKey = document.querySelector('.key');
 const ALL_KEYS = document.querySelectorAll('.key');
-const LETTER_KEYS = document.querySelectorAll('.key-k')
-const CAPSLOCK = document.querySelector('.capslock')
+const LETTER_KEYS = document.querySelectorAll('.key-k');
+const CAPSLOCK = document.querySelector('.capslock');
+const ALT = document.querySelector('[data="AltLeft"]');
 let flag = 'en';
 
 
@@ -170,10 +171,12 @@ const changeLanguage = (lang, obj, buttonsArr) => {
 
 
 
-someKey.addEventListener('click', () => {  
-    flag === 'en' ? flag = 'ru' : flag = 'en';
-    console.log(flag)
-    changeLanguage(flag, RU_DATA, LETTER_KEYS)
+
+document.addEventListener('keydown', (e) => {  
+    if (e.ctrlKey && ALT.classList.contains('active')) {
+        flag === 'en' ? flag = 'ru' : flag = 'en';
+        changeLanguage(flag, RU_DATA, LETTER_KEYS)
+    }
 })
 
 // window.addEventListener('keydown', (e) => {

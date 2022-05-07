@@ -1,4 +1,5 @@
 import { BUTTONS_DATA } from './keys';
+import { RU_DATA } from './keys';
 import { Button} from './Button'
 import '../style.css'
 import { Spacebar } from './Spacebar';
@@ -13,8 +14,6 @@ const inputWrapper = renderElement('div', 'input_wrapper');
 const inputArea = renderElement('textarea', 'textarea');
 const keyboardWrapper = renderElement('div', 'keyboard_wrapper');
 const keyboard = renderElement('div', 'keyboard');
-
-const KEYS = document.querySelectorAll('.key')
 
 //Dom 
 window.addEventListener('DOMContentLoaded', () => {
@@ -53,7 +52,7 @@ const renderButtons = (arr, container) => {
             element = new CapsLock(button.key, button.code)
             container.append(element.generateCapsLock())
         } else {
-            element = new Button(button.key, button.code)
+            element = new Button(button.key, button.code, button.ruKey)
             container.append(element.generateButton()) 
         }
         return container
@@ -61,6 +60,13 @@ const renderButtons = (arr, container) => {
 }
 
 renderButtons(BUTTONS_DATA, keyboard)
+
+const someKey = document.querySelector('.key');
+const ALL_KEYS = document.querySelectorAll('.key');
+const LETTER_KEYS = document.querySelectorAll('.key-k')
+const CAPSLOCK = document.querySelector('.capslock')
+let flag = 'en';
+
 
 function printButtons (button, input) { 
     
@@ -84,35 +90,37 @@ function printButtons (button, input) {
 } 
 
 const capsLock = (e, keysArr) => {
-    for (let key of keysArr) { 
-        const text = key.innerHTML
-        if (key.innerHTML.match(/^\w$/) && !controls.includes(key.innerHTML)) {
-            if (e.getModifierState("CapsLock")) {
+    keysArr.forEach(key => {
+        const text = key.innerHTML;
+        if (e.getModifierState("CapsLock")) {
                 key.innerHTML = key.innerHTML.toUpperCase()
             } else {
                 key.innerHTML = key.innerHTML.toLowerCase()
+                CAPSLOCK.classList.remove('active')
             }
-        }
-    }
+    })
 }
 
 document.addEventListener('keydown', function(e) {
     e.preventDefault()
-   const keys = document.querySelectorAll('.key')
+    const keys = document.querySelectorAll('.key')
    for (let key of keys) {
         if (e.code === key.getAttribute('data')) {
             key.classList.add('active')
             printButtons(key, inputArea)
-            capsLock(e, keys)
+            capsLock(e, LETTER_KEYS)
         } 
     }
 })
 
 document.addEventListener('keyup', function(e) {
+    e.preventDefault()
     const keys = document.querySelectorAll('.key')
      for (let key of keys) {
          if (e.code === key.getAttribute('data')) {
-            key.classList.remove('active')
+            if (key.innerHTML !== "CapsLock") {
+                key.classList.remove('active')
+            }
          }
      }
  })
@@ -123,7 +131,6 @@ document.addEventListener('keyup', function(e) {
          if (e.target.getAttribute('data') === key.getAttribute('data')) {
             key.classList.add('active')
             printButtons(key, inputArea)
-            capsLock(e, keys)
         } 
     }
  })
@@ -139,8 +146,38 @@ document.addEventListener('keyup', function(e) {
 
 
 
+ CAPSLOCK.addEventListener('click', (e) => {
+    LETTER_KEYS.forEach(key => {
+    if (key.innerHTML.toUpperCase() !== key.innerHTML) {
+        key.innerHTML = key.innerHTML.toUpperCase()
+        CAPSLOCK.classList.add('active')
+    }  else {
+        key.innerHTML = key.innerHTML.toLowerCase(); 
+    } 
+    return key.innerHTML
+    })
+})
+
+const changeLanguage = (lang, obj, buttonsArr) => {
+        buttonsArr.forEach(button => {
+            if (lang === 'ru') {
+               button.innerHTML = obj[button.getAttribute('data')][1]
+            } else {
+                button.innerHTML = obj[button.getAttribute('data')][0]
+            }
+        })
+    }
+
+
+
+someKey.addEventListener('click', () => {  
+    flag === 'en' ? flag = 'ru' : flag = 'en';
+    console.log(flag)
+    changeLanguage(flag, RU_DATA, LETTER_KEYS)
+})
+
 // window.addEventListener('keydown', (e) => {
-//     let key = `{key: ${e.key}, code: ${e.code}}`
+//     let key = `{ruKey: ${e.key}`
 //     let arr = []
 //     arr.push(key)
 //     console.log(arr)

@@ -100,3 +100,7 @@ textarea {
     cursor: pointer;
     transition-duration: 0.1s;
 }
+
+.hidden-key {
+    display: none
+}

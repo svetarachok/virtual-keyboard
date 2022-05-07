@@ -68,13 +68,24 @@ const CAPSLOCK = document.querySelector('.capslock');
 const ALT = document.querySelector('[data="AltLeft"]');
 let flag = 'en';
 
+// const getDeleted = (input) => {
+//     let start = input.selectionStart;
+//     let end = input.selectionEnd;
+//     if (input.value) {
+//         input.selectionStart = 0;
+//         input.selectionEnd = input.value.length;
+
+//     }
+// }
 
 function printButtons (button, input) { 
-    
+   input.focus() 
     if ( button.getAttribute('data') === "Space") {
         input.value += " "
     } else if (button.getAttribute('data') === "Backspace") {
-        input.value = input.value.slice(0, -1)
+        input.setRangeText('', input.selectionStart-1, input.selectionEnd)
+    } else if (button.getAttribute('data') === "Delete") {
+        input.setRangeText('', input.selectionStart, input.selectionEnd+1)
     } else if (button.getAttribute('data') === "Enter") {
         input.value += "\n"
     } else if (button.getAttribute('data') === "Tab") {
@@ -173,8 +184,12 @@ const changeLanguage = (lang, obj, buttonsArr) => {
 
 
 document.addEventListener('keydown', (e) => {  
-    if (e.ctrlKey && ALT.classList.contains('active')) {
+    if (e.ctrlKey && e.code === "AltLeft") {
+        if (!flag) {
+            flag = 'en'
+        }
         flag === 'en' ? flag = 'ru' : flag = 'en';
+        localStorage.setItem('lang', `${flag}`)
         changeLanguage(flag, RU_DATA, LETTER_KEYS)
     }
 })

@@ -8,8 +8,15 @@ export class Button {
     generateButton () {
         let button = document.createElement('button');
         button.className = 'key key-k';
-        button.innerHTML = `${this.key}`;
-        button.setAttribute('data', `${this.code}`)        
+        // button.innerHTML = `${this.key}`;
+        button.setAttribute('data', `${this.code}`)  
+        
+        if (localStorage.getItem('lang') === 'ru') {
+            button.innerHTML = `${this.ruKey}`;
+       } else {
+           button.innerHTML = `${this.key}`;
+       }
+      
 
         if (this.key === 'ArrowLeft') {
             button.classList.add('key-control')

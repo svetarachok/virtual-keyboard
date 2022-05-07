@@ -30,7 +30,7 @@ body {
 }
 
 .input_wrapper, textarea {
-    width: 860px;
+    width: 846px;
     height: 200px;
 }
 
@@ -42,7 +42,7 @@ textarea {
 
 /* keyBoard*/
 .keyboard_wrapper {
-    width: 860px;
+    width: 846px;
     height: 280px;
     background-color: #010120;
 }
@@ -70,31 +70,44 @@ textarea {
 }
 
 .key-wide {
-    width: 120px;
+    width: 113px;
     font-size: 18px;
-    background-color: lightblue;
+    background-color: #dac6ff;
 }
 .key-semiwide {
-    width: 75px;
+    width: 65px;
     font-size: 18px;
-    background-color: lightblue;
 }
 
 .spacebar {
-    width: 340px;
+    width: 394px;
 }
 
 .key-control {
-    background-color: lightblue;
+    background-color: #dac6ff;
     font-size: 18px;
 }
 
-.key:hover {
-    /* background-color: rgb(255, 144, 144); */
-    cursor: pointer;
+[data="Backspace"] {
+    width: 120px;
 }
 
 .active {
-    background-color: red;
+    border-radius: 50px;
+    background-color: #5900ff;
+    color: white;
+    cursor: pointer;
+    transition-duration: 0.1s;
+}
+.key:hover {
+    background-color: #5900ff;
+    color: white;
     cursor: pointer;
 }
+
+
+.hidden-key {
+    display: none
+}
+
+/*# sourceMappingURL=main.css.map*/

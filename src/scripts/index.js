@@ -1,5 +1,5 @@
 import { BUTTONS_DATA } from './keys';
-import { RU_DATA } from './keys';
+import { BTNS_DATA } from './keys';
 import { Button} from './Button'
 import '../style.css'
 import { Spacebar } from './Spacebar';
@@ -68,16 +68,6 @@ const CAPSLOCK = document.querySelector('.capslock');
 const ALT = document.querySelector('[data="AltLeft"]');
 let flag = 'en';
 
-// const getDeleted = (input) => {
-//     let start = input.selectionStart;
-//     let end = input.selectionEnd;
-//     if (input.value) {
-//         input.selectionStart = 0;
-//         input.selectionEnd = input.value.length;
-
-//     }
-// }
-
 function printButtons (button, input) { 
    input.focus() 
     if ( button.getAttribute('data') === "Space") {
@@ -103,7 +93,6 @@ function printButtons (button, input) {
 
 const capsLock = (e, keysArr) => {
     keysArr.forEach(key => {
-        const text = key.innerHTML;
         if (e.getModifierState("CapsLock")) {
                 key.innerHTML = key.innerHTML.toUpperCase()
             } else {
@@ -113,6 +102,13 @@ const capsLock = (e, keysArr) => {
     })
 }
 
+const changeLanguage = (lang, obj, buttonsArr) => {
+    buttonsArr.forEach(button => {
+     (lang === 'ru') ? button.innerHTML = obj[button.getAttribute('data')][1] :
+            button.innerHTML = obj[button.getAttribute('data')][0]
+        })
+}
+
 document.addEventListener('keydown', function(e) {
     e.preventDefault()
     const keys = document.querySelectorAll('.key')
@@ -120,7 +116,7 @@ document.addEventListener('keydown', function(e) {
         if (e.code === key.getAttribute('data')) {
             key.classList.add('active')
             printButtons(key, inputArea)
-            capsLock(e, LETTER_KEYS)
+            capsLock(e, LETTER_KEYS) 
         } 
     }
 })
@@ -129,7 +125,7 @@ document.addEventListener('keyup', function(e) {
     e.preventDefault()
     const keys = document.querySelectorAll('.key')
      for (let key of keys) {
-         if (e.code === key.getAttribute('data')) {
+         if (e.code === key.getAttribute('data')) { 
             if (key.innerHTML !== "CapsLock") {
                 key.classList.remove('active')
             }
@@ -156,8 +152,6 @@ document.addEventListener('keyup', function(e) {
     }
  })
 
-
-
  CAPSLOCK.addEventListener('click', (e) => {
     LETTER_KEYS.forEach(key => {
     if (key.innerHTML.toUpperCase() !== key.innerHTML) {
@@ -170,35 +164,40 @@ document.addEventListener('keyup', function(e) {
     })
 })
 
-const changeLanguage = (lang, obj, buttonsArr) => {
-        buttonsArr.forEach(button => {
-            if (lang === 'ru') {
-               button.innerHTML = obj[button.getAttribute('data')][1]
-            } else {
-                button.innerHTML = obj[button.getAttribute('data')][0]
-            }
-        })
-    }
 
 
-
-
-document.addEventListener('keydown', (e) => {  
-    if (e.ctrlKey && e.code === "AltLeft") {
-        if (!flag) {
-            flag = 'en'
+const getShift = (obj, buttonsArr) => {
+    buttonsArr.forEach(button => {
+        if (flag !== 'ru') {
+            button.innerHTML = obj[button.getAttribute('data')][2] 
+        } else {
+            button.innerHTML = obj[button.getAttribute('data')][3] 
         }
-        flag === 'en' ? flag = 'ru' : flag = 'en';
-        localStorage.setItem('lang', `${flag}`)
-        changeLanguage(flag, RU_DATA, LETTER_KEYS)
+    }) 
+}
+
+document.addEventListener('keydown', (e) => {
+    if (e.shiftKey) {
+        getShift(BTNS_DATA, LETTER_KEYS)   
     }
 })
 
-// window.addEventListener('keydown', (e) => {
-//     let key = `{ruKey: ${e.key}`
-//     let arr = []
-//     arr.push(key)
-//     console.log(arr)
-//     return arr
-// })
-
+document.addEventListener('keyup', (e) => {
+    if (!e.getModifierState("CapsLock")) {
+        LETTER_KEYS.forEach(button => {
+            if (flag != 'ru')  {
+                button.innerHTML = BTNS_DATA[button.getAttribute('data')][0]
+            } else {
+                button.innerHTML = BTNS_DATA[button.getAttribute('data')][1]
+            }
+        }) 
+    } }) 
+    
+    
+document.addEventListener('keydown', (e) => {  
+    if (e.ctrlKey && e.code === "AltLeft") {
+        flag === 'en' ? flag = 'ru' : flag = 'en';
+        localStorage.setItem('lang', `${flag}`)
+        changeLanguage(flag, BTNS_DATA, LETTER_KEYS)
+    }
+})

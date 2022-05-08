@@ -218,7 +218,7 @@ document.addEventListener('keyup', (e) => {
 });
 
 document.addEventListener('keydown', (e) => {
-  if (e.ctrlKey && e.code === 'AltLeft') {
+  if (e.ctrlKey && e.code === 'AltLeft' || e.altKey && e.code === 'ControlLeft') {
     if (flag === 'en') {
       flag = 'ru';
     } else {

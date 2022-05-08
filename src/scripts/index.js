@@ -64,6 +64,7 @@ renderButtons(BUTTONS_DATA, keyboard);
 
 const LETTER_KEYS = document.querySelectorAll('.key-k');
 const CAPSLOCK = document.querySelector('.capslock');
+const SHIFT = document.querySelectorAll(".shift");
 let flag = 'en';
 
 const printButtons = (button, input) => {
@@ -95,6 +96,16 @@ const capsLock = (e, buttonsArr) => {
     } else {
       button.innerHTML = button.innerHTML.toLowerCase();
       CAPSLOCK.classList.remove('active');
+    }
+  });
+};
+
+const getShift = (obj, buttonsArr) => {
+  buttonsArr.forEach((button) => {
+    if (flag !== 'ru') {
+      button.innerHTML = obj[button.getAttribute('data')][2];
+    } else {
+      button.innerHTML = obj[button.getAttribute('data')][3];
     }
   });
 };
@@ -166,15 +177,25 @@ CAPSLOCK.addEventListener('click', () => {
   });
 });
 
-const getShift = (obj, buttonsArr) => {
-  buttonsArr.forEach((button) => {
-    if (flag !== 'ru') {
-      button.innerHTML = obj[button.getAttribute('data')][2];
-    } else {
-      button.innerHTML = obj[button.getAttribute('data')][3];
-    }
-  });
-};
+
+SHIFT.forEach(shift => {
+  shift.addEventListener('mousedown', (e) => {
+    e.preventDefault();
+    getShift(BTNS_DATA, LETTER_KEYS);
+})
+})
+
+SHIFT.forEach(shift => {
+  shift.addEventListener('mouseup', (e) => {
+    e.preventDefault();
+    LETTER_KEYS.forEach((button) => {
+      if (flag !== 'ru') {
+        button.innerHTML = BTNS_DATA[button.getAttribute('data')][0];
+      } else {
+        button.innerHTML = BTNS_DATA[button.getAttribute('data')][1];
+      }
+    });
+})})
 
 document.addEventListener('keydown', (e) => {
   if (e.shiftKey) {

@@ -15,6 +15,10 @@ export default class ControlButton extends Button {
       button.classList.add('key-semiwide');
     }
 
+    if (this.code === 'ShiftLeft' || this.code === 'ShiftRight') {
+      button.classList.add('shift');
+    }
+
     if (this.code === 'ControlLeft' || this.code === 'ControlRight') {
       button.innerHTML = 'Ctrl';
     }

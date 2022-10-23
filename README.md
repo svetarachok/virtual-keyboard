@@ -1,1 +1,1 @@
-# virtual-keyboard
+# Virtual keyboard simulator in vanilla JavaScript
